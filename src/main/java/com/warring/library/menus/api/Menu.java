@@ -286,13 +286,8 @@ public class Menu implements InventoryHolder {
         return clone;
     }
     
-    public Menu cloneMenu() {
-        Menu clone = new Menu(this.title, this.rows);
-        clone.setExitOnClickOutside(this.exitOnClickOutside);
-        clone.setMenuCloseBehaviour(this.menuCloseBehaviour);
-        for (Map.Entry<Integer, MenuItem> entry : this.items.entrySet()) {
-            clone.addMenuItem(entry.getValue(), entry.getKey());
-        }
+    public Menu cloneMenu() throws CloneNotSupportedException {
+        Menu clone = (Menu) super.clone();
         return clone;
     }
 
