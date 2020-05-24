@@ -275,7 +275,7 @@ public class Menu implements InventoryHolder {
     }
 
     @Override
-    protected Menu clone() throws CloneNotSupportedException {
+    private Menu clone() throws CloneNotSupportedException {
         Menu menu = (Menu) super.clone();
         Menu clone = new Menu(this.title, this.rows);
         clone.setExitOnClickOutside(this.exitOnClickOutside);
