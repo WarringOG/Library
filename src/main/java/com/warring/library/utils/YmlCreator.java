@@ -10,9 +10,10 @@ import java.io.IOException;
 
 public class YmlCreator {
 
-    String ymlName;
-    File file;
-    FileConfiguration ymlFile;
+    private String ymlName;
+    private File file;
+    private FileConfiguration ymlFile;
+
 
     public YmlCreator(String ymlFileName) {
         this.ymlName = ymlFileName;
@@ -20,6 +21,21 @@ public class YmlCreator {
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             WarringPlugin.getInstance().saveResource(ymlName + ".yml", false);
+        }
+        ymlFile = new YamlConfiguration();
+        try {
+            ymlFile.load(file);
+        } catch (IOException | InvalidConfigurationException e){
+            e.printStackTrace();
+        }
+    }
+
+    public YmlCreator(File folder, String ymlFileName) {
+        this.ymlName = ymlFileName;
+        file = new File(folder, ymlName);
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            WarringPlugin.getInstance().saveResource(ymlName, false);
         }
         ymlFile = new YamlConfiguration();
         try {
