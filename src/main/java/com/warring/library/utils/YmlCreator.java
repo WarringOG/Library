@@ -44,6 +44,20 @@ public class YmlCreator {
             e.printStackTrace();
         }
     }
+    
+ public YmlCreator(File currFile) {
+        file = currFile;
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            WarringPlugin.getInstance().saveResource(ymlName, false);
+        }
+        ymlFile = new YamlConfiguration();
+        try {
+            ymlFile.load(file);
+        } catch (IOException | InvalidConfigurationException e){
+            e.printStackTrace();
+        }
+    }
 
     public void saveResource() {
         if(ymlFile == null || file == null) return;
