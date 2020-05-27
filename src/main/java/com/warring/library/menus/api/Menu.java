@@ -285,7 +285,7 @@ public class Menu implements InventoryHolder {
         }
         return clone;
     }
-    
+
     public Menu cloneMenu() {
         Menu clone = new Menu(this.title, this.rows);
         clone.setExitOnClickOutside(this.exitOnClickOutside);

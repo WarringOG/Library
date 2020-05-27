@@ -20,7 +20,7 @@ public class EventExe<T> implements EventExecutor, Listener {
     }
 
     @Override
-    public void execute(Listener listener, Event event) throws EventException {
+    public void execute(Listener listener, Event event) throws ClassCastException, EventException {
         T type = (T)start.getClazz().cast(event);
         start.getConsumer().accept(type);
     }

@@ -14,10 +14,12 @@ public class CustomMenu {
 
     private Menu menu;
     private int size;
+    private ConfigurationSection sec;
 
     public CustomMenu(ConfigurationSection sec) {
         menu = MenuAPI.getInstance().createMenu(Utils.toColor(sec.getString("Title")), sec.getInt("Size") / 9);
         this.size = sec.getInt("Size");
+        this.sec = sec;
         for (int i = 0; i < size; ++i) {
             menu.addMenuItem(new MenuItem.UnclickableMenuItem() {
                 @Override
@@ -31,6 +33,14 @@ public class CustomMenu {
     public CustomMenu(String title, int size) {
         menu = MenuAPI.getInstance().createMenu(Utils.toColor(title), size / 9);
         this.size = size;
+        for (int i = 0; i < size; ++i) {
+            menu.addMenuItem(new MenuItem.UnclickableMenuItem() {
+                @Override
+                public ItemStack getItemStack() {
+                    return ItemUtils.getConfigItem(WarringPlugin.getInstance().getConfig().getConfigurationSection("MenuOptions.FillerItem"));
+                }
+            }, i);
+        }
     }
 
     public int getSize() {

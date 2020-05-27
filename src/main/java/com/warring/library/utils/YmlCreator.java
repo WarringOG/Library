@@ -44,8 +44,8 @@ public class YmlCreator {
             e.printStackTrace();
         }
     }
-    
- public YmlCreator(File currFile) {
+
+    public YmlCreator(File currFile) {
         file = currFile;
         if (!file.exists()) {
             file.getParentFile().mkdirs();
