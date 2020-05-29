@@ -28,7 +28,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
-import com.sun.istack.internal.Nullable;
 import lombok.Getter;
 import lombok.NonNull;
 import org.apache.commons.lang.StringUtils;
@@ -38,6 +37,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -1097,7 +1097,8 @@ public enum XMaterial {
      *
      * @since 1.0.0
      */
-    @Getter private static final int version = Integer.parseInt(getMajorVersion(Bukkit.getServer().getClass().getPackage().getName()));
+    @Getter
+    private static final int version = Integer.parseInt(getMajorVersion(Bukkit.getServer().getClass().getPackage().getName()));
 
     /**
      * Cached result if the server version is after the v1.13 flattening update.
