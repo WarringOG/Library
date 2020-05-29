@@ -1,6 +1,7 @@
 package com.warring.library.utils;
 
 import com.google.common.collect.Lists;
+import com.warring.library.enums.XMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -19,7 +20,7 @@ public class ItemUtils {
             Bukkit.getLogger().severe("Can not parse Material data.");
             data = 0;
         }
-        Material mat = Material.getMaterial(args[0]);
+        Material mat = XMaterial.valueOf(args[0]).parseMaterial();
         if (mat == null) {
             mat = Material.DIAMOND;
             return null;
@@ -58,7 +59,7 @@ public class ItemUtils {
             Bukkit.getLogger().severe("Can not parse Material data.");
             data = 0;
         }
-        Material mat = Material.getMaterial(args[0]);
+        Material mat = XMaterial.valueOf(args[0]).parseMaterial();
         if (mat == null) {
             mat = Material.DIAMOND;
             Bukkit.getLogger().severe("This material is not valid, converting to diamond...");
@@ -75,7 +76,7 @@ public class ItemUtils {
             Bukkit.getLogger().severe("Can not parse Material data.");
             data = 0;
         }
-        Material mat = Material.getMaterial(args[0]);
+        Material mat = XMaterial.valueOf(args[0]).parseMaterial();
         if (mat == null) {
             mat = Material.DIAMOND;
             Bukkit.getLogger().severe("This material is not valid, converting to diamond...");
