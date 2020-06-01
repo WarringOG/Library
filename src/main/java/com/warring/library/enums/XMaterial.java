@@ -1098,7 +1098,7 @@ public enum XMaterial {
      * @since 1.0.0
      */
     @Getter
-    private static final int version = Integer.parseInt(getMajorVersion(Bukkit.getServer().getClass().getPackage().getName()));
+    private static int version = Integer.parseInt(getMajorVersion(Bukkit.getServer().getClass().getPackage().getName()));
 
     /**
      * Cached result if the server version is after the v1.13 flattening update.
@@ -1106,7 +1106,7 @@ public enum XMaterial {
      *
      * @since 3.0.0
      */
-    public static final boolean ISFLAT = supports(13);
+    public static boolean ISFLAT = supports(13);
 
     /**
      * Checks if the specified version is the same version or higher than the current server version.
@@ -1125,7 +1125,7 @@ public enum XMaterial {
      *
      * @since 2.0.0
      */
-    public static final EnumSet<XMaterial> VALUES = EnumSet.allOf(XMaterial.class);
+    public static EnumSet<XMaterial> VALUES = EnumSet.allOf(XMaterial.class);
     /**
      * A set of material names that can be damaged.
      * <p>
@@ -1134,7 +1134,7 @@ public enum XMaterial {
      *
      * @since 1.0.0
      */
-    private static final ImmutableSet<String> DAMAGEABLE = ImmutableSet.of(
+    private static ImmutableSet<String> DAMAGEABLE = ImmutableSet.of(
             "HELMET", "CHESTPLATE", "LEGGINGS", "BOOTS",
             "SWORD", "AXE", "PICKAXE", "SHOVEL", "HOE",
             "ELYTRA", "TRIDENT", "HORSE_ARMOR", "BARDING",
@@ -1152,7 +1152,7 @@ public enum XMaterial {
      * @since 3.0.0
      */
     @SuppressWarnings("UnstableApiUsage")
-    private static final ImmutableMap<XMaterial, XMaterial> DUPLICATED = Maps.immutableEnumMap(ImmutableMap.<XMaterial, XMaterial>builder()
+    private static ImmutableMap<XMaterial, XMaterial> DUPLICATED = Maps.immutableEnumMap(ImmutableMap.<XMaterial, XMaterial>builder()
             .put(MELON, MELON_SLICE)
             .put(CARROT, CARROTS)
             .put(POTATO, POTATOES)
@@ -1173,7 +1173,7 @@ public enum XMaterial {
      * @see #containsLegacy(String)
      * @since 2.2.0
      *
-    private static final ImmutableSet<String> LEGACY_VALUES = VALUES.stream().map(XMaterial::getLegacy)
+    private static ImmutableSet<String> LEGACY_VALUES = VALUES.stream().map(XMaterial::getLegacy)
             .flatMap(Arrays::stream)
             .filter(m -> m.charAt(1) == '.')
             .collect(Collectors.collectingAndThen(Collectors.toSet(), ImmutableSet::copyOf));
@@ -1185,7 +1185,7 @@ public enum XMaterial {
      *
      * @since 1.0.0
      */
-    private static final Cache<String, XMaterial> NAME_CACHE = CacheBuilder.newBuilder()
+    private static Cache<String, XMaterial> NAME_CACHE = CacheBuilder.newBuilder()
             .softValues()
             .expireAfterAccess(15, TimeUnit.MINUTES)
             .build();
@@ -1195,7 +1195,7 @@ public enum XMaterial {
      *
      * @since 3.0.0
      */
-    private static final Cache<XMaterial, Optional<Material>> PARSED_CACHE = CacheBuilder.newBuilder()
+    private static Cache<XMaterial, Optional<Material>> PARSED_CACHE = CacheBuilder.newBuilder()
             .softValues()
             .expireAfterAccess(10, TimeUnit.MINUTES)
             .concurrencyLevel(Runtime.getRuntime().availableProcessors())
@@ -1207,7 +1207,7 @@ public enum XMaterial {
      *
      * @since 3.0.0
      */
-    private static final Pattern FORMAT_PATTERN = Pattern.compile("\\W+");
+    private static Pattern FORMAT_PATTERN = Pattern.compile("\\W+");
 
     /**
      * The data value of this material <a href="https://minecraft.gamepedia.com/Java_Edition_data_values/Pre-flattening">pre-flattening</a>.
@@ -1218,19 +1218,19 @@ public enum XMaterial {
      * @return data of this material, or 0 if none.
      * @since 1.0.0
      */
-    @Getter public final byte data;
+    @Getter public byte data;
 
     /**
      * A list of material names that was being used for older verions.
      */
-    private final String[] legacy;
+    private String[] legacy;
 
     /**
      * The data value of this material https://minecraft.gamepedia.com/Java_Edition_data_values/Pre-flattening
      *
      * @see #getData()
      */
-    public final int id;
+    public int id;
 
     XMaterial(int id, int data, String... legacy) {
         this.data = (byte) data;

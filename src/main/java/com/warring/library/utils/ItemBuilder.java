@@ -22,6 +22,10 @@ public class ItemBuilder {
         this.item = new ItemStack(material, 1, (short) (byte) data);
     }
 
+    public ItemBuilder(Material material) {
+        this.item = new ItemStack(material);
+    }
+
     public ItemBuilder(ItemStack item) {
         this.item = item;
     }

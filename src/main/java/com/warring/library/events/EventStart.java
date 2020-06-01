@@ -13,7 +13,7 @@ public class EventStart<T> {
     private EventPriority priority;
     private EventExe eventExe;
 
-    private EventStart(Class<T> clazz, Consumer<T> consumer, EventPriority priority) {
+    public EventStart(Class<T> clazz, Consumer<T> consumer, EventPriority priority) {
         this.clazz = clazz;
         this.consumer = consumer;
         this.priority = priority;

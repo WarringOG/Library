@@ -3,6 +3,7 @@ package com.warring.library.menus.api;
 import com.warring.library.WarringPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class MenuItem {
@@ -58,9 +59,11 @@ public abstract class MenuItem {
         ItemStack currentItemStack = getItemStack();
         setClickable(false);
         menu.getInventory().setItem(getSlot(), item);
+        menu.updateMenu();
         Bukkit.getScheduler().runTaskLater(WarringPlugin.getInstance(), () -> {
             setClickable(true);
             menu.getInventory().setItem(getSlot(), currentItemStack);
+            menu.updateMenu();
         }, time);
     }
 
@@ -71,7 +74,7 @@ public abstract class MenuItem {
 
     public abstract static class UnclickableMenuItem extends MenuItem {
         @Override
-        public void onClick(Player p0, InventoryClickType p1) {
+        public void onClick(Player p, InventoryClickType clickType) {
         }
 
     }

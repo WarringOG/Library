@@ -99,6 +99,6 @@ public class MenuAPI implements Listener {
     }
 
     public interface MenuCloseBehaviour {
-        void onClose(Player p0, Menu p1, boolean p2);
+        void onClose(Player p, Menu menu, boolean bypass);
     }
 }

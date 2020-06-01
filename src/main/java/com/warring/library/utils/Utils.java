@@ -64,12 +64,30 @@ public class Utils {
         return ((current * 100/ max * 100) / 100);
     }
 
-    public static String format(Long timeleft) {
-        int hours = (int) TimeUnit.MILLISECONDS.toHours(timeleft);
-        int minute = (int)(TimeUnit.MILLISECONDS.toMinutes(timeleft) - TimeUnit.HOURS.toMinutes(hours));
-        int second = (int)(TimeUnit.MILLISECONDS.toSeconds(timeleft) - (TimeUnit.HOURS.toSeconds(hours) + TimeUnit.MINUTES.toSeconds(minute)));
-        String remaining = String.format("%02d h %02d m %02d s", hours, minute, second);
-        return remaining;
+    public static String format(long seconds) {
+        if (seconds == 0L) {
+            return "0s";
+        }
+        long minute = seconds / 60L;
+        seconds %= 60L;
+        long hour = minute / 60L;
+        minute %= 60L;
+        final long day = hour / 24L;
+        hour %= 24L;
+        final StringBuilder time = new StringBuilder();
+        if (day != 0L) {
+            time.append(day).append("d ");
+        }
+        if (hour != 0L) {
+            time.append(hour).append("h ");
+        }
+        if (minute != 0L) {
+            time.append(minute).append("m ");
+        }
+        if (seconds != 0L) {
+            time.append(seconds).append("s");
+        }
+        return time.toString().trim();
     }
 
     public static Location getLocFromConfig(String location) {

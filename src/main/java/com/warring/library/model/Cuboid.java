@@ -2,6 +2,7 @@ package com.warring.library.model;
 
 import com.warring.library.utils.RegionUtils;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class Cuboid {
@@ -23,5 +24,9 @@ public class Cuboid {
 
     public boolean playerInCuboid(Player p) {
         return RegionUtils.isWithinCuboid(p.getLocation(), primary, second);
+    }
+
+    public Block[] getBlocks() {
+        return RegionUtils.getBlocks(primary, second);
     }
 }
