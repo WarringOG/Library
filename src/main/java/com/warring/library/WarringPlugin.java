@@ -26,9 +26,6 @@ public class WarringPlugin extends JavaPlugin {
         if (nmsver.equalsIgnoreCase("v1_8_R1") || nmsver.startsWith("v1_7_")) {
             useOldMethods = true;
         }
-        MapStorage<Integer, Integer> mapStorage = new MapStorage<>();
-        mapStorage.put(1, 2);
-        mapStorage.get(1);
     }
 
     public void registerListeners(Listener... listeners) {
