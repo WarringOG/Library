@@ -1,5 +1,6 @@
 package com.warring.library.menus;
 
+import com.warring.library.ServerVersion;
 import com.warring.library.WarringPlugin;
 import com.warring.library.menus.api.Menu;
 import com.warring.library.menus.api.MenuAPI;
@@ -27,7 +28,7 @@ public class CustomMenu {
             menu.addMenuItem(new MenuItem.UnclickableMenuItem() {
                 @Override
                 public ItemStack getItemStack() {
-                    return ServerVersion.isOver_V1_12() ? ItemUtils.getConfigItemNonLegacy(WarringPlugin.getInstance().getConfig().getConfigurationSection("MenuOptions.FillerItem")) : ItemUtils.getConfigItemLegacy(WarringPlugin.getInstance().getConfig().getConfigurationSection("MenuOptions.FillerItem"));
+                    return getItem();
                 }
             }, i);
         }
@@ -68,5 +69,9 @@ public class CustomMenu {
 
     public void setupPages(List<MenuItem> items, List<Integer> list) {
         menu.setupPages(items, list);
+    }
+
+    public ItemStack getItem() {
+        return ServerVersion.isOver_V1_12() ? ItemUtils.getConfigItemNonLegacy(WarringPlugin.getInstance().getConfig().getConfigurationSection("MenuOptions.FillerItem")) : ItemUtils.getConfigItemLegacy(WarringPlugin.getInstance().getConfig().getConfigurationSection("MenuOptions.FillerItem"));
     }
 }
