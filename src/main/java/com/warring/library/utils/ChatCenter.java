@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 public class ChatCenter {
 
-    private final static int CENTER_PX = 154;
+    private static int CENTER_PX = 154;
 
     public static void sendCenteredMessage(Player player, String message){
         if(message == null || message.equals("")) player.sendMessage("");

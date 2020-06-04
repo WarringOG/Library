@@ -1,15 +1,14 @@
 package com.warring.library;
 
-import com.warring.library.storage.MapStorage;
+import com.warring.library.events.EventStart;
+import com.warring.library.events.Filters;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.function.Consumer;
 
 public class WarringPlugin extends JavaPlugin {
 
@@ -26,6 +25,9 @@ public class WarringPlugin extends JavaPlugin {
         if (nmsver.equalsIgnoreCase("v1_8_R1") || nmsver.startsWith("v1_7_")) {
             useOldMethods = true;
         }
+        EventStart.register(BlockBreakEvent.class).addFilter(e -> e.getPlayer() != null).handleEvent(e -> {
+
+        }).dispatch();
     }
 
     public void registerListeners(Listener... listeners) {

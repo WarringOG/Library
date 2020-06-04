@@ -13,16 +13,12 @@ public class ItemUtils {
 
     public static ItemStack getConfigItemNonLegacy(ConfigurationSection sec) {
         String args = sec.getString("Material");
-        Material mat = XMaterial.valueOf(args).parseMaterial();
+        Material mat = Material.getMaterial(args);
         if (mat == null) {
             mat = Material.DIAMOND;
-            return null;
+            Bukkit.getLogger().severe("This material is not valid, converting to diamond...");
         }
         ItemBuilder builder = new ItemBuilder(mat);
-        if (mat == Material.SKULL_ITEM) {
-            String owner = sec.getString("Owner");
-            builder.setOwner(owner);
-        }
         builder.setName(sec.getString("Name"));
         builder.setLore(sec.getStringList("Lore"));
         ItemStack item2 = builder.getStack();
@@ -45,29 +41,23 @@ public class ItemUtils {
 
     public static ItemBuilder parseMaterialNonLegacy(String material) {
         String args = material;
-        Material mat = XMaterial.valueOf(args).parseMaterial();
-        if (mat == null) {
-            mat = Material.DIAMOND;
-            Bukkit.getLogger().severe("This material is not valid, converting to diamond...");
-        }
-        return new ItemBuilder(mat);
-    }
-
-    public static ItemStack getConfigItemNonLegacy(ConfigurationSection sec, String[] replace, String[] replacements) {
-        String args = sec.getString("Material");
-        Material mat = XMaterial.valueOf(args).parseMaterial();
+        Material mat = Material.getMaterial(args);
         if (mat == null) {
             mat = Material.DIAMOND;
             Bukkit.getLogger().severe("This material is not valid, converting to diamond...");
         }
         ItemBuilder builder = new ItemBuilder(mat);
-        if (mat == Material.SKULL_ITEM) {
-            String owner = sec.getString("Owner");
-            for (int i = 0; i < replace.length; i++) {
-                owner = owner.replaceAll(replace[i], replacements[i]);
-            }
-            builder.setOwner(owner);
+        return new ItemBuilder(mat);
+    }
+
+    public static ItemStack getConfigItemNonLegacy(ConfigurationSection sec, String[] replace, String[] replacements) {
+        String args = sec.getString("Material");
+        Material mat = Material.getMaterial(args);
+        if (mat == null) {
+            mat = Material.DIAMOND;
+            Bukkit.getLogger().severe("This material is not valid, converting to diamond...");
         }
+        ItemBuilder builder = new ItemBuilder(mat);
         String message = sec.getString("Name");
         for (int i = 0; i < replace.length; i++) {
             message = message.replaceAll(replace[i], replacements[i]);

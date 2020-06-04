@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList;
 
 public class CustomEvent extends Event {
 
-    private static final HandlerList HANDLERS = new HandlerList();
+    private static HandlerList HANDLERS = new HandlerList();
 
     @Override
     public HandlerList getHandlers() {

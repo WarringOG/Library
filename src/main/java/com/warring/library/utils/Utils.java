@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 
 import java.util.Random;
@@ -49,6 +50,14 @@ public class Utils {
         return random.nextInt(upper - lower + 1) + lower;
     }
 
+    public static boolean isOutsideBorder(Location location) {
+        WorldBorder worldBorder = location.getWorld().getWorldBorder();
+        double size = worldBorder.getSize() / 2.0;
+        double centerX = worldBorder.getCenter().getX();
+        double centerZ = worldBorder.getCenter().getZ();
+        return centerX - size > location.getX() || centerX + size <= location.getX() || centerZ - size > location.getZ() || centerZ + size <= location.getZ();
+    }
+
 
     public static int getPercentage(int current, int max) {
         if (max == 0) {
@@ -72,9 +81,9 @@ public class Utils {
         seconds %= 60L;
         long hour = minute / 60L;
         minute %= 60L;
-        final long day = hour / 24L;
+        long day = hour / 24L;
         hour %= 24L;
-        final StringBuilder time = new StringBuilder();
+        StringBuilder time = new StringBuilder();
         if (day != 0L) {
             time.append(day).append("d ");
         }

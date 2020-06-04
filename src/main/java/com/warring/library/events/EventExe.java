@@ -7,9 +7,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.EventExecutor;
 import org.bukkit.plugin.Plugin;
 
-public class EventExe<T> implements EventExecutor, Listener {
+import java.util.function.Predicate;
 
-    private EventStart start;
+public class EventExe<T extends Event> implements EventExecutor, Listener {
+
+    private EventStart<T> start;
 
     public EventExe(EventStart start) {
         this.start = start;
@@ -22,6 +24,13 @@ public class EventExe<T> implements EventExecutor, Listener {
     @Override
     public void execute(Listener listener, Event event) {
         if (!event.getClass().equals(start.getClazz())) return;
+
+        for (Predicate<T> filter : start.getFilters()) {
+            if (!filter.test((T) event)) {
+                return;
+            }
+        }
+
         T type = (T)start.getClazz().cast(event);
         start.getConsumer().accept(type);
     }
