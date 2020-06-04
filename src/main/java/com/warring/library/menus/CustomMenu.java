@@ -27,7 +27,7 @@ public class CustomMenu {
             menu.addMenuItem(new MenuItem.UnclickableMenuItem() {
                 @Override
                 public ItemStack getItemStack() {
-                    return ServerVersion.isOver_V1_12() ? ItemUtils.getConfigItemNonLegacy(WarringPlugin.getInstance().getConfig().getConfigurationSection("MenuOptions.FillerItem") : ItemUtils.getConfigItemLegacy(WarringPlugin.getInstance().getConfig().getConfigurationSection("MenuOptions.FillerItem"));
+                    return ServerVersion.isOver_V1_12() ? ItemUtils.getConfigItemNonLegacy(WarringPlugin.getInstance().getConfig().getConfigurationSection("MenuOptions.FillerItem")) : ItemUtils.getConfigItemLegacy(WarringPlugin.getInstance().getConfig().getConfigurationSection("MenuOptions.FillerItem"));
                 }
             }, i);
         }
