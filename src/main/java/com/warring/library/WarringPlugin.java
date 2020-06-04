@@ -25,9 +25,6 @@ public class WarringPlugin extends JavaPlugin {
         if (nmsver.equalsIgnoreCase("v1_8_R1") || nmsver.startsWith("v1_7_")) {
             useOldMethods = true;
         }
-        EventStart.register(BlockBreakEvent.class).addFilter(e -> e.getPlayer() != null).handleEvent(e -> {
-
-        }).dispatch();
     }
 
     public void registerListeners(Listener... listeners) {
