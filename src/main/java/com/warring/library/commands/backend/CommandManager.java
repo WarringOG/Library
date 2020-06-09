@@ -2,6 +2,7 @@ package com.warring.library.commands.backend;
 
 import com.google.common.collect.Lists;
 import com.warring.library.WarringPlugin;
+import com.warring.library.commands.CommandExe;
 import com.warring.library.commands.CommandStart;
 import com.warring.library.commands.ICommand;
 import com.warring.library.utils.Utils;
@@ -16,24 +17,28 @@ public abstract class CommandManager<T> {
     private String perm;
     private List<CommandPost> infos;
     private boolean playerOnly;
+    private CommandStart start;
 
     public CommandManager(String name, String permission) {
         this.name = name;
         this.perm = permission;
         infos = Lists.newArrayList();
         playerOnly = false;
+        start = CommandStart.start(name).setPermission(perm);
     }
 
     public CommandManager(String name) {
         this.name = name;
         infos = Lists.newArrayList();
         playerOnly = false;
+        start = CommandStart.start(name);
     }
 
     public CommandManager(String name, boolean playerOnly) {
         this.name = name;
         this.playerOnly = playerOnly;
         infos = Lists.newArrayList();
+        start = CommandStart.start(name).playerOnly(playerOnly);
     }
 
     public CommandManager(String name, String perm, boolean playerOnly) {
@@ -41,6 +46,11 @@ public abstract class CommandManager<T> {
         this.playerOnly = playerOnly;
         infos = Lists.newArrayList();
         this.perm = perm;
+        start = CommandStart.start(name).playerOnly(playerOnly).setPermission(perm);
+    }
+
+    public void addAliases(String... aliases) {
+        start.addAliases(aliases);
     }
 
     public void addArgs(CommandPost... posts) {
@@ -51,8 +61,8 @@ public abstract class CommandManager<T> {
 
     public abstract void base(T object);
 
-    public void register() {
-        CommandStart.start(name).playerOnly(playerOnly).setPermission(perm == null ? null : perm).doCommand(new ICommand() {
+    public CommandExe getExecutor() {
+        return start.doCommand(new ICommand() {
             @Override
             public void onCommand(CommandSender sender, String[] args) {
                 if (args.length == 0) {
@@ -97,7 +107,11 @@ public abstract class CommandManager<T> {
                 String[] newArgs = removeTheElement(args, 0);
                 post.execute((T)sender, newArgs);
             }
-        }).register();
+        });
+    }
+
+    public void register() {
+        getExecutor().register();
     }
 
     private String[] removeTheElement(String[] arr, int index) {

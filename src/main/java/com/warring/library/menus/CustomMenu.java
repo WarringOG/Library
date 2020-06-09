@@ -37,6 +37,14 @@ public class CustomMenu {
     public CustomMenu(String title, int size) {
         menu = MenuAPI.getInstance().createMenu(Utils.toColor(title), size / 9);
         this.size = size;
+        for (int i = 0; i < size; ++i) {
+            menu.addMenuItem(new MenuItem.UnclickableMenuItem() {
+                @Override
+                public ItemStack getItemStack() {
+                    return getItem();
+                }
+            }, i);
+        }
     }
 
     public int getSize() {

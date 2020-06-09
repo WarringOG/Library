@@ -13,5 +13,5 @@ public @interface CommandInfo {
 
     String permission();
 
-    boolean playerOnly();
+    boolean playerOnly() default false;
 }
