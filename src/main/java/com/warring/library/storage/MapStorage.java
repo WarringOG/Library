@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class MapStorage<K, V> {
 
+    @Getter
     private Map<K, V> map;
 
     public MapStorage() {
