@@ -17,28 +17,30 @@ public class RegionUtils {
 
     public static double BOUNDING_HORIZONTAL_GAP = 1;
 
-    public static boolean isWithinCuboid(Location loc, Location primary, Location secondary) {
-        Vector primVector = primary.toVector(), secVector = secondary.toVector();
+	public static boolean isWithinCuboid(final Location location, final Location primary, final Location secondary) {
+		return isWithinCuboid(location, primary.toVector(), secondary.toVector());
+	}
 
-        double locX = loc.getX();
-        double locY = loc.getY();
-        double locZ = loc.getZ();
+	public static boolean isWithinCuboid(final Location location, final Vector primary, final Vector secondary) {
+		final double locX = location.getX();
+		final double locY = location.getY();
+		final double locZ = location.getZ();
 
-        int x = primVector.getBlockX();
-        int y = primVector.getBlockY();
-        int z = primVector.getBlockZ();
+		final int x = primary.getBlockX();
+		final int y = primary.getBlockY();
+		final int z = primary.getBlockZ();
 
-        int x1 = secVector.getBlockX();
-        int y1 = secVector.getBlockY();
-        int z1 = secVector.getBlockZ();
+		final int x1 = secondary.getBlockX();
+		final int y1 = secondary.getBlockY();
+		final int z1 = secondary.getBlockZ();
 
-        if ((locX >= x && locX <= x1) || (locX <= x && locX >= x1))
-            if ((locZ >= z && locZ <= z1) || (locZ <= z && locZ >= z1))
-                if ((locY >= y && locY <= y1) || (locY <= y && locY >= y1))
-                    return true;
+		if (locX >= x && locX <= x1 || locX <= x && locX >= x1)
+			if (locZ >= z && locZ <= z1 || locZ <= z && locZ >= z1)
+				if (locY >= y && locY <= y1 || locY <= y && locY >= y1)
+					return true;
 
-        return false;
-    }
+		return false;
+	}
 
     public static Block[] getBlocks(Location primary, Location secondary) {
         List<Block> blocks = new ArrayList<>();
