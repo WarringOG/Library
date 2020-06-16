@@ -1,11 +1,13 @@
 package com.warring.library.particles;
 
 import com.warring.library.WarringPlugin;
+import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+@Getter
 public class Particle
 {
     private ParticleEffect particleName;
