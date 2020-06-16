@@ -6,17 +6,27 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-public abstract class MenuItem {
+public class MenuItem {
+
+
     private Menu menu;
     private int slot;
-    private ItemStack itemStack;
     private boolean clickable = true;
+    private ItemStack itemStack;
+    private ItemAction action;
+
+    public MenuItem(ItemAction action, ItemStack item) {
+        this.action = action;
+        this.itemStack = item;
+    }
 
     void addToMenu(Menu menu) {
         this.menu = menu;
     }
 
-    public abstract void onClick(Player p0, InventoryClickType p1);
+    public void onClick(Player p0, InventoryClickType p1) {
+        action.onClick(p0, p1);
+    }
 
     void removeFromMenu(Menu menu) {
         if (this.menu == menu) {
@@ -24,7 +34,9 @@ public abstract class MenuItem {
         }
     }
 
-    public abstract ItemStack getItemStack();
+    public ItemStack getItemStack() {
+        return itemStack;
+    }
 
     public void setItemStack(ItemStack item, boolean update) {
         this.itemStack = item;
@@ -72,11 +84,17 @@ public abstract class MenuItem {
         return "MenuItem{menu=" + menu.toString() + ", item=" + getItemStack().toString() + ", slot=" + slot + ", clickable=" + clickable + "}";
     }
 
-    public abstract static class UnclickableMenuItem extends MenuItem {
-        @Override
-        public void onClick(Player p, InventoryClickType clickType) {
+    public static class UnclickableMenuItem extends MenuItem {
+
+        public UnclickableMenuItem(ItemStack item) {
+            super((p, type) -> {}, item);
         }
 
+    }
+
+    public interface ItemAction {
+
+        void onClick(Player p, InventoryClickType type);
     }
 
 }

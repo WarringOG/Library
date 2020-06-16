@@ -86,7 +86,7 @@ public class Menu implements InventoryHolder {
         this.pageSlots = pageSlots;
     }
 
-    public boolean nextPage(Player player) {
+    public boolean nextPage() {
         if (currentPage >= maxPage) return false;
         currentPage++;
         clearPageSlots();
@@ -97,7 +97,7 @@ public class Menu implements InventoryHolder {
         return true;
     }
 
-    public boolean previousPage(Player player) {
+    public boolean previousPage() {
         if (currentPage <= 1) return false;
         currentPage--;
         clearPageSlots();
@@ -206,7 +206,7 @@ public class Menu implements InventoryHolder {
         return true;
     }
 
-    void selectMenuItem(Player player, int index, InventoryClickType clickType) {
+    public void selectMenuItem(Player player, int index, InventoryClickType clickType) {
         if (this.items.containsKey(index)) {
             MenuItem item = this.items.get(index);
             if (item.isClickable()) {
@@ -314,5 +314,4 @@ public class Menu implements InventoryHolder {
     public String toString() {
         return "Menu{title=" + title + ", rows=" + rows + ", exitOnClickOutside=" + exitOnClickOutside + ", bypassMenuCloseBehavior=" + bypassMenuCloseBehaviour + ", parentMenu=" + parentMenu.toString() + ", inventory=" + inventory.toString() + ", currentPage=" + currentPage + ", maxPage=" + maxPage + ", pageItems=" + pageItems + "pageSlots=" + pageSlots + "}";
     }
-
 }

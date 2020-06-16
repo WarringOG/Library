@@ -1,5 +1,7 @@
 package com.warring.library.menus.api;
 
+import com.warring.library.WarringPlugin;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -100,5 +102,20 @@ public class MenuAPI implements Listener {
 
     public interface MenuCloseBehaviour {
         void onClose(Player p, Menu menu, boolean bypass);
+    }
+
+    public MenuCloseBehaviour openParentBehavior() {
+        return new MenuCloseBehaviour() {
+            @Override
+            public void onClose(Player p, Menu menu, boolean bypass) {
+                if (!bypass) {
+                    if (menu.getParent() != null) {
+                        Bukkit.getScheduler().runTaskLater(WarringPlugin.getInstance(), () -> {
+                            menu.getParent().openMenu(p);
+                        }, 2L);
+                    }
+                }
+            }
+        };
     }
 }

@@ -19,31 +19,25 @@ public class CustomMenu {
     private int size;
     private ConfigurationSection sec;
 
-    public CustomMenu(ConfigurationSection sec) {
+    public CustomMenu(ConfigurationSection sec, boolean filler) {
         this.sec = sec;
         menu = MenuAPI.getInstance().createMenu(Utils.toColor(sec.getString("Title")), sec.getInt("Size") / 9);
         this.size = sec.getInt("Size");
         this.sec = sec;
-        for (int i = 0; i < size; ++i) {
-            menu.addMenuItem(new MenuItem.UnclickableMenuItem() {
-                @Override
-                public ItemStack getItemStack() {
-                    return getItem();
-                }
-            }, i);
+        if (filler) {
+            for (int i = 0; i < size; ++i) {
+                menu.addMenuItem(new MenuItem.UnclickableMenuItem(getItem()), i);
+            }
         }
     }
 
-    public CustomMenu(String title, int size) {
+    public CustomMenu(String title, int size, boolean filler) {
         menu = MenuAPI.getInstance().createMenu(Utils.toColor(title), size / 9);
         this.size = size;
-        for (int i = 0; i < size; ++i) {
-            menu.addMenuItem(new MenuItem.UnclickableMenuItem() {
-                @Override
-                public ItemStack getItemStack() {
-                    return getItem();
-                }
-            }, i);
+        if (filler) {
+            for (int i = 0; i < size; ++i) {
+                menu.addMenuItem(new MenuItem.UnclickableMenuItem(getItem()), i);
+            }
         }
     }
 
