@@ -5,6 +5,8 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import java.util.Set;
+
 public class Cuboid {
 
     private Location primary, second;
@@ -29,7 +31,7 @@ public class Cuboid {
     public Block[] getBlocks() {
         return RegionUtils.getBlocks(primary, second);
     }
-    
+
     public Set<Location> getBox() {
         return RegionUtils.getBoundingBox(primary, second);
     }
