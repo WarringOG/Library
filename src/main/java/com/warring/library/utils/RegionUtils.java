@@ -50,9 +50,9 @@ public class RegionUtils {
         int topBlockZ = (primary.getBlockZ() < secondary.getBlockZ() ? secondary.getBlockZ() : primary.getBlockZ());
         int bottomBlockZ = (primary.getBlockZ() > secondary.getBlockZ() ? secondary.getBlockZ() : primary.getBlockZ());
 
-        for (int x = bottomBlockX; x <= topBlockX; x++)
-            for (int z = bottomBlockZ; z <= topBlockZ; z++)
-                for (int y = bottomBlockY; y <= topBlockY; y++) {
+        for (int x = bottomBlockX; x <= topBlockX + 1; x++)
+            for (int z = bottomBlockZ; z <= topBlockZ + 1; z++)
+                for (int y = bottomBlockY; y <= topBlockY + 1; y++) {
                     Block block = primary.getWorld().getBlockAt(x, y, z);
 
                     if (block != null)
