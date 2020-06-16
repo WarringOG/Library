@@ -29,4 +29,8 @@ public class Cuboid {
     public Block[] getBlocks() {
         return RegionUtils.getBlocks(primary, second);
     }
+    
+    public Set<Location> getBox() {
+        return RegionUtils.getBoundingBox(primary, second);
+    }
 }
