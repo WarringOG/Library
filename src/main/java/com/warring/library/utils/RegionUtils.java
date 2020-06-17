@@ -54,7 +54,7 @@ public class RegionUtils {
 
         for (int x = bottomBlockX; x <= topBlockX + 1; x++)
             for (int z = bottomBlockZ; z <= topBlockZ + 1; z++)
-                for (int y = bottomBlockY; y <= topBlockY + 1; y++) {
+                for (int y = bottomBlockY; y <= topBlockY; y++) {
                     Block block = primary.getWorld().getBlockAt(x, y, z);
 
                     if (block != null)
