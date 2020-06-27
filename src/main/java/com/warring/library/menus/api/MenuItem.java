@@ -12,12 +12,14 @@ public class MenuItem {
     private Menu menu;
     private int slot;
     private boolean clickable = true;
-    private ItemStack itemStack;
+    private MenuItemStack itemStack;
     private ItemAction action;
+    private Player player;
 
-    public MenuItem(ItemAction action, ItemStack item) {
+    public MenuItem(ItemAction action, MenuItemStack item, Player player) {
         this.action = action;
         this.itemStack = item;
+        this.player = player;
     }
 
     void addToMenu(Menu menu) {
@@ -35,10 +37,10 @@ public class MenuItem {
     }
 
     public ItemStack getItemStack() {
-        return itemStack;
+        return itemStack.getItem(player);
     }
 
-    public void setItemStack(ItemStack item, boolean update) {
+    public void setItemStack(MenuItemStack item, boolean update) {
         this.itemStack = item;
 
         if (update && (this.getMenu() != null)) {
@@ -67,10 +69,10 @@ public class MenuItem {
         this.clickable = clickable;
     }
 
-    public void setTemporaryIcon(ItemStack item, long time) {
+    public void setTemporaryIcon(MenuItemStack item, long time) {
         ItemStack currentItemStack = getItemStack();
         setClickable(false);
-        menu.getInventory().setItem(getSlot(), item);
+        menu.getInventory().setItem(getSlot(), item.getItem(player));
         menu.updateMenu();
         Bukkit.getScheduler().runTaskLater(WarringPlugin.getInstance(), () -> {
             setClickable(true);
@@ -86,10 +88,14 @@ public class MenuItem {
 
     public static class UnclickableMenuItem extends MenuItem {
 
-        public UnclickableMenuItem(ItemStack item) {
-            super((p, type, menuItem) -> {}, item);
+        public UnclickableMenuItem(MenuItemStack item, Player player) {
+            super((p, type, menuItem) -> {}, item, player);
         }
 
+    }
+
+    public interface MenuItemStack {
+        ItemStack getItem(Player p);
     }
 
     public interface ItemAction {
