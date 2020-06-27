@@ -25,7 +25,7 @@ public class MenuItem {
     }
 
     public void onClick(Player p0, InventoryClickType p1) {
-        action.onClick(p0, p1);
+        action.onClick(p0, p1, this);
     }
 
     void removeFromMenu(Menu menu) {
@@ -87,14 +87,14 @@ public class MenuItem {
     public static class UnclickableMenuItem extends MenuItem {
 
         public UnclickableMenuItem(ItemStack item) {
-            super((p, type) -> {}, item);
+            super((p, type, menuItem) -> {}, item);
         }
 
     }
 
     public interface ItemAction {
 
-        void onClick(Player p, InventoryClickType type);
+        void onClick(Player p, InventoryClickType type, MenuItem item);
     }
 
 }
