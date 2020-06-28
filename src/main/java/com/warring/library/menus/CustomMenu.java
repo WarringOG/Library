@@ -19,24 +19,24 @@ public class CustomMenu {
     private int size;
     private ConfigurationSection sec;
 
-    public CustomMenu(ConfigurationSection sec, boolean filler) {
+    public CustomMenu(Player p, ConfigurationSection sec, boolean filler) {
         this.sec = sec;
         menu = MenuAPI.getInstance().createMenu(Utils.toColor(sec.getString("Title")), sec.getInt("Size") / 9);
         this.size = sec.getInt("Size");
         this.sec = sec;
         if (filler) {
             for (int i = 0; i < size; ++i) {
-                menu.addMenuItem(new MenuItem.UnclickableMenuItem(getItem()), i);
+                menu.addMenuItem(new MenuItem.UnclickableMenuItem(pl -> getItem(), p), i);
             }
         }
     }
 
-    public CustomMenu(String title, int size, boolean filler) {
+    public CustomMenu(Player p, String title, int size, boolean filler) {
         menu = MenuAPI.getInstance().createMenu(Utils.toColor(title), size / 9);
         this.size = size;
         if (filler) {
             for (int i = 0; i < size; ++i) {
-                menu.addMenuItem(new MenuItem.UnclickableMenuItem(getItem()), i);
+                menu.addMenuItem(new MenuItem.UnclickableMenuItem(pl -> getItem(), p), i);
             }
         }
     }
